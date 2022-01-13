@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -9,6 +9,10 @@
     <body>
         <h1>SNS Name</h1>
         <h3>タイムライン</h3>
+        <p class='create'>
+            [<a href="/posts/create">新規作成</a>]
+        </p>
+        
         <div class='posts'>
             @foreach ($posts as $post)
                 <div class='post'>
