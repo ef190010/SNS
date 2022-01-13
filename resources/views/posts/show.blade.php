@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Posts</title>
+        <title>Post</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="/css/app.css">
@@ -13,7 +13,8 @@
         <div class="content">
             <div class="content_post">
                 <h3>投稿の詳細</h3>
-                <p>{{ $post->body }}</p>    
+                <p>{{ $post->body }}</p>
+                <p>{{ $post->keyword_1 }}　{{ $post->keyword_2 }}　{{ $post->keyword_3 }}</p>
             </div>
         </div>
         <div class="footer">

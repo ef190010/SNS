@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    // fillableは最初に宣言するらしい
+    protected $fillable = [
+        'body',
+        'keyword_1',
+        'keyword_2',
+        'keyword_3',
+    ];
 
     public function getPaginateByLimit(int $limit_count = 10)
     {
