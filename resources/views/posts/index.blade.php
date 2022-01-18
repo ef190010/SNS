@@ -16,9 +16,21 @@
         <div class='posts'>
             @foreach ($posts as $post)
                 <div class='post'>
-                    <p class='body'>
-                        <a href='/posts/{{ $post->id }}'>{{ $post->body }}</a>
-                    </p>
+                    <div class="user_id">
+                        <h4>ユーザーID</h4>
+                        <a href="">{{ $post->user->id }}</a> 
+                    </div>
+                    <div class="user_name">
+                        <h4>ユーザー名</h4>
+                        <a href="">{{ $post->user->name }}</a> 
+                    </div>
+                    <div class="body">
+                    <a href='/posts/{{ $post->id }}'>{{ $post->body }}</a>
+                    </div>
+                    <div class="image">
+                        <img src="{{ $post->image_path }}">
+                    </div>
+                    
                 </div>
             @endforeach
         </div>

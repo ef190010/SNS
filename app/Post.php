@@ -3,16 +3,40 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use SoftDeletes;
+    
     // fillableは最初に宣言するらしい
     protected $fillable = [
         'body',
-        'keyword_1',
-        'keyword_2',
-        'keyword_3',
+        'user_id',
+        'categories',
+        'prefs',
+        'image_path',
+        // 'file',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+    
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
+    }
+    
+    public function getPrefNameAttribute() {
+        return config('prefs.'.$this->prefs);
+    }
+    
+    public function getCategoryNameAttribute() {
+        return config('categories.'.$this->categories);
+    }
+
 
     public function getPaginateByLimit(int $limit_count = 10)
     {
