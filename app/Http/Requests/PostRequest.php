@@ -26,9 +26,9 @@ class PostRequest extends FormRequest
     {
         return [
             'post.body'=>'required|string|max:200',
-            'post.keyword_1'=>'nullable|string|max:20',
-            'post.keyword_2'=>'nullable|string|max:20',
-            'post.keyword_3'=>'nullable|string|max:20',
+            'file'=>'nullable|file|image|',
+            'post.prefs'=>'integer',
+            'post.categories'=>'integer',
 
         ];
     }
@@ -44,12 +44,7 @@ class PostRequest extends FormRequest
             'post.body.required'  => '本文は最低1文字以上入力してください',
             'post.body.string' => '文字列で入力してください',
             'post.body.max' => '200字以内で入力してください',
-            'post.keyword_1.string' => '文字列で入力してください',
-            'post.keyword_1.max' => '20字以内で入力してください',
-            'post.keyword_2.string' => '文字列で入力してください',
-            'post.keyword_2.max' => '20字以内で入力してください',
-            'post.keyword_3.string' => '文字列で入力してください',
-            'post.keyword_3.max' => '20字以内で入力してください',
+            'file.image' => '画像ファイルではありません'
             
             
         ];
