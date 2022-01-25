@@ -6,6 +6,7 @@
     </head>
     <body>
         <h1>SNS Name</h1>
+        <h3>投稿の作成</h3>
         <form action="/posts" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="body">

@@ -29,6 +29,12 @@ class Post extends Model
         return $this->belongsToMany('App\Tag');
     }
     
+    public function replies()
+    {
+        return $this->hasMany('App\Reply');
+    }
+
+    
     public function getPrefNameAttribute() {
         return config('prefs.'.$this->prefs);
     }

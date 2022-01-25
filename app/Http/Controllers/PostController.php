@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Reply;
 use App\Post;
 use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 
 class PostController extends Controller
@@ -29,9 +31,16 @@ class PostController extends Controller
     * @params Object Post // 引数の$postはid=1のPostインスタンス
     * @return Reposnse post view
     */
-    public function show(Post $post)
+    public function show(Post $post, Reply $reply)
     {   
-        return view('posts/show')->with(['post' => $post]);
+        $reply = DB::table('replies')->with('user')->where('post_id', $post->id)->get();
+        // $reply = DB::table('replies')->where('post_id', $post->id)->first();
+
+        return view('posts/show')->with([
+            'post' => $post,
+            'replies' => $reply,
+             ]);
+        
     }
     
     public function create()
