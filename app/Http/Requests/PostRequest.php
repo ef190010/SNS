@@ -29,6 +29,7 @@ class PostRequest extends FormRequest
             'file'=>'nullable|file|image|',
             'post.prefs'=>'integer',
             'post.categories'=>'integer',
+            'tags' => 'nullable|starts_with:#',
 
         ];
     }
@@ -45,7 +46,7 @@ class PostRequest extends FormRequest
             'post.body.string' => '文字列で入力してください',
             'post.body.max' => '200字以内で入力してください',
             'file.image' => '画像ファイルではありません'
-            
+            // 'tags.starts_with'[] => '頭に#をつけてください'
             
         ];
     }

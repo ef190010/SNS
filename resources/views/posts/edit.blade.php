@@ -23,8 +23,8 @@
             <div class="tags">
                 <h4>タグ</h4>
                 <div>
-                    <input type="text" name="post_tag[]" value=""/>
-                    <p class="tag_error" style="color:red">{{ $errors->first('') }}</p>
+                    <input type="text" name="tags" value="@foreach($post->tags as $tag) #{{ $tag->name }} @endforeach"/>
+                    <p class="tag_error" style="color:red">{{ $errors->first('tags') }}</p>
                 </div>
             </div>
 

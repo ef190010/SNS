@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <!DOCTYPE HTML>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -9,6 +12,10 @@
     <body>
         <h1>SNS Name</h1>
         <h3>タイムライン</h3>
+        <div class="user_id">
+            <p><a href="">{{ Auth::user()->name }}</a> でログイン中</p>
+        </div>
+
         <p class='create'>
             [<a href="/posts/create">新規作成</a>]
         </p>
@@ -39,3 +46,4 @@
         </div>
     </body>
 </html>
+@endsection
