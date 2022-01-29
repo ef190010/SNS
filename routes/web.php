@@ -25,3 +25,10 @@ Route::get('/posts/{post}', 'PostController@show');
 Route::get('/posts/{post}/edit', 'PostController@edit');
 Route::put('/posts/{post}', 'PostController@update');
 Route::delete('/posts/{post}', 'PostController@delete');
+
+Route::post('/replies', 'ReplyController@store');
+Route::get('/replies/{reply}/edit', 'ReplyController@edit');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

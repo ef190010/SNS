@@ -4,13 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class ReplyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
-    
+     */
+     /*
     public function authorize()
     {
         return false;
@@ -25,12 +26,8 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'post.body'=>'required|string|max:200',
+            'reply.body'=>'required|string|max:200',
             'file'=>'nullable|file|image|',
-            'post.prefs'=>'integer',
-            'post.categories'=>'integer',
-            'tags' => 'nullable|starts_with:#',
-
         ];
     }
     
@@ -42,12 +39,13 @@ class PostRequest extends FormRequest
     public function messages()
     {
         return [
-            'post.body.required'  => '本文は最低1文字以上入力してください',
-            'post.body.string' => '文字列で入力してください',
-            'post.body.max' => '200字以内で入力してください',
+            'reply.body.required'  => '本文は最低1文字以上入力してください',
+            'reply.body.string' => '文字列で入力してください',
+            'reply.body.max' => '200字以内で入力してください',
             'file.image' => '画像ファイルではありません'
-            // 'tags.starts_with'[] => '頭に#をつけてください'
+            
             
         ];
     }
+    
 }

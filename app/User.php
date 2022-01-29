@@ -36,10 +36,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+    * バリデーションルール
+    * Auth\RegisterControllerから移動しています。
+    * 追加したユーザーの項目を追記しています。
+    *
+    * @var array
+    */
     
-    public function users()
+    public static $rules = [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+    ];
+    
+    public function posts()
     {
         return $this->hasMany('App\Post');
+    }
+    
+    public function replies()
+    {
+        return $this->hasMany('App\Reply');
     }
         
 }
