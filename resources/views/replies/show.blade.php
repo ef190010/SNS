@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Post</title>
+        <title>Reply</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="/css/app.css">
@@ -13,70 +13,52 @@
         <div class="content">
             <div class="back"><a href="/">戻る</a></div>
 
-            <p class="edit">[<a href="/posts/{{ $post->id }}/edit">編集</a>]</p>
+            <p class="edit">[<a href="/replies/{{ $reply->id }}/edit">編集</a>]</p>
             <!-- ※上の行は仮配置 -->
 
-            <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post" style="display:inline" onclick="return confirm('本当に削除しますか?')">
+            <form action="/replies/{{ $reply->id }}" id="form_{{ $reply->id }}" method="POST" style="display:inline" onclick="return confirm('本当に削除しますか?')">
                 @csrf
                 @method('DELETE')
                 <button type="submit">削除</button> 
             </form>
             
             <div class="content_post">
-                <h3>投稿の詳細</h3>
+                <h3>返信の詳細</h3>
                 <div class="user_id">
                     <h4>ユーザーID</h4>
-                    <a href="">{{ $post->user->id }}</a> 
+                    <a href="">{{ $reply->user->id }}</a> 
                 </div>
                 <div class="user_name">
                     <h4>ユーザー名</h4>
-                    <a href="">{{ $post->user->name }}</a> 
+                    <a href="">{{ $reply->user->name }}</a> 
                 </div>
                 <div class="body">
-                    <p>{{ $post->body }}</p>
+                    <p>{{ $reply->body }}</p>
                 </div>
                 
-                <div class="tags">
-                    <h4>タグ</h4>
-                    @foreach($post->tags as $tag)   
-                        {{ $tag->name }}
-                    @endforeach
-                </div>
-                
-                <div class="image">
-                    <img src="{{ $post->image_path }}">
-                </div>
-                <div class="prefs">
-                    <p>場所：{{ $post->prefName }}</p>
-                </div>
-                <div class="categories">
-                    <h4>カテゴリー</h4>
-                    <p>{{ $post->categoryName }}</p>
-                </div>
             </div>
             
-            <div class="postreply">
-                <h3>返信の作成</h3>
-                <input type="button" value="作成" onclick="clickBtn1()" />
+            <div class="replyreply">
+                <input type="button" value="このコメントに返信" onclick="clickBtn2()" />
 
-                <div id="create_postreply">
+                <div id="create_replyreply">
                     <script>
-                        document.getElementById("create_postreply").style.display = "none";
-                    
-                        function clickBtn1(){
-                        	const p1 = document.getElementById("create_postreply");
-                    
-	                        if(p1.style.display=="block"){
-		                        p1.style.display ="none";
-	                        }else{
-    		                    p1.style.display ="block";
-	                        }
+                        document.getElementById("create_replyreply").style.display = "none";
+                
+                        function clickBtn2(){
+            	            const p2 = document.getElementById("create_replyreply");
+                
+	                        if(p2.style.display=="block"){
+	                            p2.style.display ="none";
+                            }else{
+                                p2.style.display ="block";
+                            }
                         }
                     </script>            
             
                     <form action="/replies" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <input name="reply[post_id]" type="hidden" value={{ $post->id }}>
+                        <input name="reply[reply_id]" type="hidden" value={{ $reply->id }}>
                         <div class="body">
                             <h4>本文</h4>
                             <textarea name="reply[body]" placeholder="文章を入力してください。" value="{{ old('reply.body') }}" ></textarea>

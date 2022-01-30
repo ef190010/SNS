@@ -15,7 +15,6 @@
                 <p class="body_error" style="color:red">{{ $errors->first('post.body') }}</p>
             </div>
             
-            <!-- 工事中 -->
             <div class="tags">
                 <h4>タグ</h4>
                 <div>

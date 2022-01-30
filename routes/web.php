@@ -27,7 +27,10 @@ Route::put('/posts/{post}', 'PostController@update');
 Route::delete('/posts/{post}', 'PostController@delete');
 
 Route::post('/replies', 'ReplyController@store');
+Route::get('/replies/{reply}', 'ReplyController@show');
 Route::get('/replies/{reply}/edit', 'ReplyController@edit');
+Route::put('/replies/{reply}', 'ReplyController@update');
+Route::delete('/replies/{reply}', 'ReplyController@delete');
 
 Auth::routes();
 
