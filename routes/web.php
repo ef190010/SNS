@@ -32,6 +32,7 @@ Route::get('/replies/{reply}/edit', 'ReplyController@edit');
 Route::put('/replies/{reply}', 'ReplyController@update');
 Route::delete('/replies/{reply}', 'ReplyController@delete');
 
-Auth::routes();
+Route::get('/users/{user}', 'UserController@show');
+Route::get('/users/{user}/edit', 'UserController@edit');
+Route::patch('/users/{user}', 'UserController@update');
 
-Route::get('/home', 'HomeController@index')->name('home');
