@@ -59,6 +59,7 @@ class PostController extends Controller
     {
         $input = $request['post'];
         $input['user_id'] = $request->user()->id;
+        // dd($request->file);
         if ($request->file('file')) {
         
             //S3へのファイルアップロード処理の時の情報を変数$upload_infoに格納

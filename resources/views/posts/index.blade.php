@@ -25,11 +25,11 @@
                 <div class='post'>
                     <div class="user_id">
                         <h4>ユーザーID</h4>
-                        <a href="">{{ $post->user->id }}</a> 
+                        <a href="/users/{{ $post->user->id }}">{{ $post->user->name }}</a> 
                     </div>
                     <div class="user_name">
                         <h4>ユーザー名</h4>
-                        <a href="">{{ $post->user->name }}</a> 
+                        <p>{{ $post->user->nickname }}</p> 
                     </div>
                     <div class="body">
                     <a href='/posts/{{ $post->id }}'>{{ $post->body }}</a>

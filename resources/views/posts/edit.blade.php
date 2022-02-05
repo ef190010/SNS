@@ -9,7 +9,7 @@
     <body>
         <h1 class="title">SNS Name</h1>
         <div class="content">
-            <form action="/posts/{{ $post->id }}" method="POST">
+            <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <h3>投稿の編集</h3>
@@ -19,7 +19,6 @@
                     <p class="body_error" style="color:red">{{ $errors->first('post.body') }}</p>
                 </div>
             
-            <!-- 工事中 -->
             <div class="tags">
                 <h4>タグ</h4>
                 <div>
