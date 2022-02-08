@@ -45,8 +45,8 @@ class PostRequest extends FormRequest
             'post.body.required'  => '本文は最低1文字以上入力してください',
             'post.body.string' => '文字列で入力してください',
             'post.body.max' => '200字以内で入力してください',
-            'file.image' => '画像ファイルではありません'
-            // 'tags.starts_with'[] => '頭に#をつけてください'
+            'file.image' => '画像ファイルではありません',
+            'tags.starts_with' => '各タグの先頭には#をつけてください',
             
         ];
     }
