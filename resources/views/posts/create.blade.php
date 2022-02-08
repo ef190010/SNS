@@ -17,6 +17,7 @@
             
             <div class="tags">
                 <h4>タグ</h4>
+                <p>各タグの先頭には#をつけてください。</p>
                 <div>
                     <input type="text" name="tags" placeholder="タグ（任意）" value="{{ old('tags') }}"/>
                     <p class="tag_error" style="color:red">{{ $errors->first('tags') }}</p>

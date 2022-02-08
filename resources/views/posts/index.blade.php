@@ -13,7 +13,7 @@
         <h1>SNS Name</h1>
         <h3>タイムライン</h3>
         <div class="user_id">
-            <p><a href="">{{ Auth::user()->name }}</a> でログイン中</p>
+            <p><a href="/users/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a> でログイン中</p>
         </div>
 
         <p class='create'>
