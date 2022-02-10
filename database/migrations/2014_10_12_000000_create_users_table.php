@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('nickname', 20)->nullable();
-            $table->string('profile',200)->nullable();
+            $table->string('profile', 200)->nullable();
             $table->string('icon')->nullable();
             $table->unsignedInteger('prefs')->nullable();
             $table->unsignedInteger('categories')->nullable();

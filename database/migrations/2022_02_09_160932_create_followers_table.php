@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CraatePostTagTable extends Migration
+class CreateFollowersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,26 @@ class CraatePostTagTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_tag', function (Blueprint $table) {
+        Schema::create('followers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('post_id');
-            $table->unsignedBigInteger('tag_id');
+            $table->unsignedBigInteger('followed_user_id');
+            $table->unsignedBigInteger('following_user_id');
             $table->timestamps();
-
-            $table->index('post_id');
-            $table->index('tag_id');
             
-            $table->foreign('post_id')
+            $table->index('followed_user_id');
+            $table->index('following_user_id');
+            
+            $table->foreign('followed_user_id')
                 ->references('id')
-                ->on('posts')
+                ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->foreign('tag_id')
+            $table->foreign('following_user_id')
                 ->references('id')
-                ->on('tags')
+                ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            
         });
     }
 
@@ -42,7 +43,6 @@ class CraatePostTagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_tag');
-        
+        Schema::dropIfExists('followers');
     }
 }

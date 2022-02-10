@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+
 
 class User extends Authenticatable
 {
@@ -96,5 +98,37 @@ class User extends Authenticatable
         return config('categories.'.$this->categories);
     }
     
-        
+    public function followers()
+    {
+        return $this->belongsToMany('App\User', 'followers', 'followed_user_id', 'following_user_id')->withTimestamps();
+    }
+    
+    public function follows()
+    {
+        return $this->belongsToMany('App\User', 'followers', 'following_user_id', 'followed_user_id')->withTimestamps();
+    }
+    
+    // フォローする
+    public function follow(Int $user_id) 
+    {
+        return $this->follows()->attach($user_id);
+    }
+
+    // フォロー解除する
+    public function unfollow(Int $user_id)
+    {
+        return $this->follows()->detach($user_id);
+    }
+
+    // フォローしているか
+    public function isFollowing(Int $user_id)
+    {
+        return $this->follows()->where('followed_user_id', $user_id)->exists();
+    }
+
+    // フォローされているか
+    public function isFollowed(Int $user_id)
+    {
+        return $this->followers()->where('following_user_id', $user_id)->exists();
+    }    
 }
