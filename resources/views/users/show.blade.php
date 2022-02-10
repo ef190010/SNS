@@ -24,6 +24,29 @@
             </p>
         @endif
 
+        @if ($user->id !== Auth::user()->id)
+            @if (Auth::user()->isFollowed($user->id))
+                <div class="px-2">
+                    <span class="px-1 bg-secondary text-light">フォローされています</span>
+                </div>
+            @endif
+            
+            <div>
+                @if (Auth::user()->isFollowing($user->id))
+                    <form action="/users/{{ $user->id }}/unfollow" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">フォロー解除</button>
+                    </form>
+                @else
+                    <form action="/users/{{ $user->id }}/follow" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">フォローする</button>
+                    </form>
+                @endif
+            </div>
+        @endif
+        
             <div class="user">
                 <div class="user_id">
                     <h4>ユーザーID</h4>

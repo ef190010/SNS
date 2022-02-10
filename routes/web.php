@@ -38,4 +38,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/users/{user}', 'UserController@show');
     Route::get('/users/{user}/edit', 'UserController@edit');
     Route::patch('/users/{user}', 'UserController@update');
+    
+    Route::post('/users/{user}/follow', 'UserController@follow');
+    Route::delete('/users/{user}/unfollow', 'UserController@unfollow');
+
 });

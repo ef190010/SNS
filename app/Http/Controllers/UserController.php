@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\User;
+use App\Follower;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Config;
@@ -81,4 +82,19 @@ class UserController extends Controller
         return redirect('/');
     }
     */
+    
+    // フォロー
+    public function follow(User $user)
+    {
+        Auth::user()->follow($user->id);
+        return back();
+    }
+
+    // フォロー解除
+    public function unfollow(User $user)
+    {
+        Auth::user()->unfollow($user->id);    
+        return back();
+        
+    }
 }
