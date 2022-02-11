@@ -53,6 +53,27 @@
                     <h4>カテゴリー</h4>
                     <p>{{ $post->categoryName }}</p>
                 </div>
+                
+                    <!-- ここからいいね機能 -->
+                <div>
+                    @if ($post->favoritePosts()->where('user_id', Auth::user()->id)->where('post_id', $post->id)->exists())
+                        <form method="POST" action="/posts/{{ $post->id }}/unfavorite" class="mb-0">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">いいね取消</button>
+                        </form>
+                    @else
+                        <form method="POST" action="/posts/{{ $post->id }}/favorite" class="mb-0">
+                            @csrf
+                            <button type="submit">いいね</button>
+                        </form>
+                    @endif
+                    <div class="row justify-content-center">
+                        <p>いいね数：{{ $post->favoritePosts()->count() }}</p>
+                    </div>
+                </div>
+                    <!-- ここまで -->                
+                
             </div>
             
             <div class="postreply">
