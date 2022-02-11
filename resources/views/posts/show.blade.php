@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <!DOCTYPE HTML>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -19,18 +23,18 @@
             <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post" style="display:inline" onclick="return confirm('本当に削除しますか?')">
                 @csrf
                 @method('DELETE')
-                <button type="submit">削除</button> 
+                <button type="submit">削除</button>
             </form>
             
             <div class="content_post">
                 <h3>投稿の詳細</h3>
                 <div class="user_id">
                     <h4>ユーザーID</h4>
-                    <a href="">{{ $post->user->id }}</a> 
+                    <a href="/users/{{ $post->user->id }}">{{ $post->user->id }}</a> 
                 </div>
                 <div class="user_name">
                     <h4>ユーザー名</h4>
-                    <a href="">{{ $post->user->name }}</a> 
+                    <a href="">{{ $post->user->name }}</a>
                 </div>
                 <div class="body">
                     <p>{{ $post->body }}</p>
@@ -129,11 +133,32 @@
                     </div>
 
                     <div class="body">
-                        <a href="/replies/{{ $reply->id }}">{{ $reply->body }}</p>
+                        <a href="/replies/{{ $reply->id }}">{{ $reply->body }}</a>
                     </div>
                     <div class="image">
                         <img src="{{ $reply->image_path }}">
                     </div>
+                    
+                    <!-- ここからいいね機能 -->
+                <div>
+                    @if ($reply->favoriteReplies()->where('user_id', Auth::user()->id)->where('reply_id', $reply->id)->exists())
+                        <form method="POST" action="/replies/{{ $reply->id }}/unfavorite" class="mb-0">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">いいね取消</button>
+                        </form>
+                    @else
+                        <form method="POST" action="/replies/{{ $reply->id }}/favorite" class="mb-0">
+                            @csrf
+                            <button type="submit">いいね</button>
+                        </form>
+                    @endif
+                    <div class="row justify-content-center">
+                        <p>いいね数：{{ $reply->favoriteReplies()->count() }}</p>
+                    </div>
+                </div>
+                    <!-- ここまで -->                
+                    
                 @empty
                     返信はありません
                 @endforelse
@@ -141,3 +166,4 @@
         </div>
     </body>
 </html>
+@endsection

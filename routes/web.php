@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth']], function() {
     
     Route::post('/posts/{post}/favorite', 'FavoriteController@storePost');
     Route::delete('/posts/{post}/unfavorite', 'FavoriteController@deletePost');
-    // Route::post('/replies/{reply}/like', 'FavoriteController@storeReply');
-    // Route::delete('/replies/{reply}/unlike', 'FavoriteController@deleteReply');
+    Route::post('/replies/{reply}/favorite', 'FavoriteController@storeReply');
+    Route::delete('/replies/{reply}/unfavorite', 'FavoriteController@deleteReply');
 
 });

@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <!DOCTYPE HTML>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -7,6 +11,8 @@
     <body>
         <h1>SNS Name</h1>
         <h3>投稿の作成</h3>
+        <div class="back">[<a href="/">戻る</a>]</div>
+        
         <form action="/posts" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="body">
@@ -46,7 +52,6 @@
                 <h4>画像</h4>
                 <label for="photo">画像ファイル:</label>
                 <input type="file" name="file">
-                <img src="file">
                 <p class="image_error" style="color:red">{{ $errors->first('file') }}</p>
 
             </div>
@@ -54,6 +59,6 @@
             <input type="submit" value="投稿"/>
         </form>
         
-        <div class="back">[<a href="/">back</a>]</div>
     </body>
 </html>
+@endsection

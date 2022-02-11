@@ -11,9 +11,9 @@
     </head>
     <body>
         <h1>SNS Name</h1>
+        <h3>ユーザー情報</h3>
         <div class="back"><a href="/">戻る</a></div>
         
-        <h3>ユーザー情報</h3>
             <div class="user_id">
                 <p><a href="">{{ Auth::user()->name }}</a> でログイン中</p>
             </div>
@@ -66,12 +66,42 @@
                     <p>場所：{{ $user->prefName }}</p>
                 </div>
                 <div class="categories">
-                    <h4>カテゴリー</h4>
+                    <h4>マイカテゴリー</h4>
                     <p>{{ $user->categoryName }}</p>
                 </div>
             </div>
         
-        <!-- この下に自分の投稿一覧 -->    
+        <!-- この下に自分の投稿一覧 -->
+        <div>
+        <h4>自分の投稿一覧</h4>
+
+            @forelse ($posts as $post)
+                <div class='post'>
+                    <div class="user_id">
+                        <h4>ユーザーID</h4>
+                        <a href="/users/{{ $post->user->id }}">{{ $post->user->name }}</a> 
+                    </div>
+                    <div class="user_name">
+                        <h4>ユーザー名</h4>
+                        <p>{{ $post->user->nickname }}</p> 
+                    </div>
+                    <div class="body">
+                    <a href='/posts/{{ $post->id }}'>{{ $post->body }}</a>
+                    </div>
+                    <div class="image">
+                        <img src="{{ $post->image_path }}">
+                    </div>
+                </div>
+                    <div class="row justify-content-center">
+                        <p>いいね数：{{ $post->favoritePosts()->count() }}</p>
+                    </div>
+                
+            @empty
+             <p>まだ投稿はありません。</p>
+            @endforelse
+            
+            
+        </div>
             
     </body>
 </html>
