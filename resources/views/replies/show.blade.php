@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <!DOCTYPE HTML>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -11,7 +15,13 @@
     <body>
         <h1>SNS Name</h1>        
         <div class="content">
-            <div class="back"><a href="/">戻る</a></div>
+            <div class="back">
+                @if (!is_null($reply->reply_id))
+                    <a href="/replies/{{ $reply->reply_id }}">戻る</a>
+                @else
+                    <a href='/posts/{{ $reply->post_id }}'>戻る</a>
+                @endif
+            </div>
 
             <p class="edit">[<a href="/replies/{{ $reply->id }}/edit">編集</a>]</p>
             <!-- ※上の行は仮配置 -->
@@ -35,6 +45,25 @@
                 <div class="body">
                     <p>{{ $reply->body }}</p>
                 </div>
+                    <!-- ここからいいね機能 -->
+                <div>
+                    @if ($reply->favoriteReplies()->where('user_id', Auth::user()->id)->where('reply_id', $reply->id)->exists())
+                        <form method="POST" action="/replies/{{ $reply->id }}/unfavorite" class="mb-0">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">いいね取消</button>
+                        </form>
+                    @else
+                        <form method="POST" action="/replies/{{ $reply->id }}/favorite" class="mb-0">
+                            @csrf
+                            <button type="submit">いいね</button>
+                        </form>
+                    @endif
+                    <div class="row justify-content-center">
+                        <p>いいね数：{{ $reply->favoriteReplies()->count() }}</p>
+                    </div>
+                </div>
+                    <!-- ここまで -->                
                 
             </div>
             
@@ -90,11 +119,32 @@
                     </div>
 
                     <div class="body">
-                        <a href="/replies/{{ $reply->id }}">{{ $reply->body }}</p>
+                        <a href="/replies/{{ $reply->id }}">{{ $reply->body }}</a>
                     </div>
                     <div class="image">
                         <img src="{{ $reply->image_path }}">
                     </div>
+                    
+                    <!-- ここからいいね機能 -->
+                <div>
+                    @if ($reply->favoriteReplies()->where('user_id', Auth::user()->id)->where('reply_id', $reply->id)->exists())
+                        <form method="POST" action="/replies/{{ $reply->id }}/unfavorite" class="mb-0">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">いいね取消</button>
+                        </form>
+                    @else
+                        <form method="POST" action="/replies/{{ $reply->id }}/favorite" class="mb-0">
+                            @csrf
+                            <button type="submit">いいね</button>
+                        </form>
+                    @endif
+                    <div class="row justify-content-center">
+                        <p>いいね数：{{ $reply->favoriteReplies()->count() }}</p>
+                    </div>
+                </div>
+                    <!-- ここまで -->                
+                    
                 @empty
                     返信はありません
                 @endforelse
@@ -102,3 +152,4 @@
         </div>
     </body>
 </html>
+@endsection

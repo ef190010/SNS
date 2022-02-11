@@ -39,27 +39,6 @@ class Post extends Model
         return $this->belongsToMany('App\User', 'favorite_posts')->withTimestamps();
     }
     
-    /*
-    // する
-    public function follow(Int $user_id) 
-    {
-        return $this->follows()->attach($user_id);
-    }
-
-    // する
-    public function unfollow(Int $user_id)
-    {
-        return $this->follows()->detach($user_id);
-    }
-
-    // いいねしているか
-    public function isFavoritePost(Int $user_id)
-    {
-        return $this->follows()->where('followed_user_id', $user_id)->exists();
-    }
-    */
-
-    
     public function getPrefNameAttribute() {
         return config('prefs.'.$this->prefs);
     }

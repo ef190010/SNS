@@ -1,4 +1,8 @@
-<!DOCTYPE HTML>
+@extends('layouts.app')
+
+@section('content')
+
+DOCTYPE HTML>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -9,10 +13,12 @@
     <body>
         <h1 class="title">SNS Name</h1>
         <div class="content">
+            <h3>返信の編集</h3>
+            <div class="back"><a href="/replies/{{ $reply->id }}">戻る</a></div>
+            
             <form action="/replies/{{ $reply->id }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <h3>返信の編集</h3>
                 <div class="body">
                     <h4>本文</h4>
                     <textarea name="reply[body]">{{ $reply->body }}</textarea>
@@ -31,8 +37,6 @@
                 <input type="submit" value="編集を確定">
             </form>
         </div>
-        <div class="footer">
-            <a href="/">戻る</a>
-        </div>
     </body>
 </html>
+@endsection

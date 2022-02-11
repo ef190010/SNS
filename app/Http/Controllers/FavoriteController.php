@@ -18,12 +18,25 @@ public function storePost(Post $post)
         return back();
     }
 
-
-
 public function deletePost(Post $post)
     {
         $post->favoritePosts()->detach(Auth::id());
 
         return back();
+    }
+    
+public function storeReply(Reply $reply)
+    {
+        $reply->favoriteReplies()->attach(Auth::id());
+
+        return back();
+    }
+
+public function deleteReply(Reply $reply)
+    {
+        $reply->favoriteReplies()->detach(Auth::id());
+
+        return back();
     }    
+
 }

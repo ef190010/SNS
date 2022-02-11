@@ -30,11 +30,9 @@ class Reply extends Model
         return $this->belongsTo('App\Post');
     }
     
-    /*
-    public function favorites()
+    public function favoriteReplies()
     {
-        return $this->hasMany('App\Favorite');
+        return $this->belongsToMany('App\User', 'favorite_replies')->withTimestamps();
     }
-    */
     
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\User;
+use App\Post;
 use App\Follower;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -22,11 +23,12 @@ class UserController extends Controller
     */
     public function show(User $user)
     {
-        // $users = new User;
-        // $users = User::where('id', $user->id)->get();
-
+        // $posts = new Post;
+        $posts = Post::where('user_id', Auth::user()->id)->get();
+        // dd($posts);
         return view('users/show')->with([
             'user' => $user,
+            'posts' => $posts,
         ]);
     }
     

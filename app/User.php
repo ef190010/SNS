@@ -102,6 +102,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Post', 'favorite_posts')->withTimestamps();
     }
     
+    public function favoriteReplies()
+    {
+        return $this->belongsToMany('App\Reply', 'favorite_replies')->withTimestamps();
+    }
+    
     public function followers()
     {
         return $this->belongsToMany('App\User', 'followers', 'followed_user_id', 'following_user_id')->withTimestamps();
