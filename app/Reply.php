@@ -30,4 +30,11 @@ class Reply extends Model
         return $this->belongsTo('App\Post');
     }
     
+    /*
+    public function favorites()
+    {
+        return $this->hasMany('App\Favorite');
+    }
+    */
+    
 }

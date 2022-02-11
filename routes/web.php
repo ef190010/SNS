@@ -41,5 +41,10 @@ Route::group(['middleware' => ['auth']], function() {
     
     Route::post('/users/{user}/follow', 'UserController@follow');
     Route::delete('/users/{user}/unfollow', 'UserController@unfollow');
+    
+    Route::post('/posts/{post}/favorite', 'FavoriteController@storePost');
+    Route::delete('/posts/{post}/unfavorite', 'FavoriteController@deletePost');
+    // Route::post('/replies/{reply}/like', 'FavoriteController@storeReply');
+    // Route::delete('/replies/{reply}/unlike', 'FavoriteController@deleteReply');
 
 });
