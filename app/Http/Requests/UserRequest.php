@@ -43,6 +43,12 @@ class UserRequest extends FormRequest
             $key = array_search('unique:users', $rules['email']);
             unset($rules['email'][$key]);
             array_push($rules['email'], Rule::unique('users')->ignore(Auth::user()));
+            
+            // nameについても同様
+            $key = array_search('unique:users', $rules['name']);
+            unset($rules['name'][$key]);
+            array_push($rules['name'], Rule::unique('users')->ignore(Auth::user()));
+            
         }
 
         return $rules;

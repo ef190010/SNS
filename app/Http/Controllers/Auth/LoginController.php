@@ -51,7 +51,6 @@ class LoginController extends Controller
     public function handleGoogleCallback()
     {
         // Google 認証後の処理
-        // あとで処理を追加しますが、とりあえず dd() で取得するユーザー情報を確認
         $gUser = Socialite::driver('google')->stateless()->user();
         // dd($gUser);
         // email が合致するユーザーを取得
