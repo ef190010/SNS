@@ -47,11 +47,11 @@ class User extends Authenticatable
     */
     
     public static $rules = [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:50', 'unique:users'],
             'email' => ['required', 'string', 'email:rfc', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'nickname' => ['string'],
-            'profile' => ['string'],
+            'nickname' => ['string', 'max:20'],
+            'profile' => ['string', 'max:200'],
             'icon' => ['nullable', 'image'],
             'prefs' => ['integer'],
             'categories' => ['integer'],
@@ -65,12 +65,13 @@ class User extends Authenticatable
     * @var array
     */
     public static $messages = [
-        'name.required' => 'お名前を入力してください。',
-        'name.max' => 'お名前は50文字以内で入力してください。',
+        'name.required' => 'アカウント名を入力してください。',
+        'name.max' => 'アカウント名は50文字以内で入力してください。',
+        'name.unique' => 'そのアカウント名は既に登録されています。',
         'email.required' => 'E-mailアドレスを入力してください。',
         'email.email' => '正しいE-mailアドレスを入力してください。',
         'email.max' => 'E-mailアドレスは255文字以内で入力してください。',
-        'email.unique' => 'そのメールアドレスは既に登録されています。',
+        'email.unique' => 'そのE-mailアドレスは既に登録されています。',
         'password.required' => 'パスワードを入力してください。',
         'password.min' => 'パスワードは8文字以上で入力してください。',
         'password.confirmed' => '入力されたパスワードが一致しません。',

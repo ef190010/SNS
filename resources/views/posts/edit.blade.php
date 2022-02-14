@@ -6,14 +6,12 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <title>Edit</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <title>Edit Post</title>
     </head>
     <body>
         <h1 class="title">SNS Name</h1>
-        <h3>投稿の編集</h3>
-        <div class="back"><a href="/posts/{{ $post->id }}">戻る</a></div>
+        <h2>投稿の編集</h2>
+        <div class="back"><a href="/posts/{{ $post->id }}">投稿詳細に戻る</a></div>
         
         <div class="content">
             <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data">
@@ -54,7 +52,11 @@
             
             <div class='image'>
                 <h4>画像</h4>
+                <p>元の画像</p>
                 <img src="{{ $post->image_path }}">
+                @if (is_null($post->image_path))
+                    <p>画像はありません。</p>
+                @endif
                 <label for="photo">画像ファイル:</label>
                 <input type="file" name="file">
                 <p class="image_error" style="color:red">{{ $errors->first('file') }}</p>

@@ -24,11 +24,11 @@ class UserController extends Controller
     public function show(User $user)
     {
         // $posts = new Post;
-        $posts = Post::where('user_id', Auth::user()->id)->get();
+        $myposts = Post::where('user_id', Auth::user()->id)->get();
         // dd($posts);
         return view('users/show')->with([
             'user' => $user,
-            'posts' => $posts,
+            'myposts' => $myposts,
         ]);
     }
     

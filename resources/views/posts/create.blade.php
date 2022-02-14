@@ -6,12 +6,12 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <title>Create</title>
+        <title>Create Post</title>
     </head>
     <body>
         <h1>SNS Name</h1>
-        <h3>投稿の作成</h3>
-        <div class="back">[<a href="/">戻る</a>]</div>
+        <h2>投稿の作成</h2>
+        <div class="back">[<a href="/">タイムラインに戻る</a>]</div>
         
         <form action="/posts" method="POST" enctype="multipart/form-data">
             @csrf
