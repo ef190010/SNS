@@ -72,7 +72,8 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password" placeholder="！変更が無ければ未入力で構いません！" 
+>
                             </div>
                         </div>
 
@@ -111,7 +112,7 @@
 
                             <div class="col-md-6">
                                 <p>現在のアイコン</p>
-                                <img src="{{ Auth::user()->icon }}">
+                                <img src="{{ Auth::user()->icon }}" class="rounded-circle" width="100" height="100">
                                 <input id="icon" type="file" class="form-control @error('icon') is-invalid @enderror" name="icon">
 
                                 @error('icon')

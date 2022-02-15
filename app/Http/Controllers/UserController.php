@@ -77,13 +77,11 @@ class UserController extends Controller
 
     }
     
-    /*
-    public function delete(Post $post)
+    public function delete(User $user)
     {
-        $post->delete();
+        $user->delete();
         return redirect('/');
     }
-    */
     
     // フォロー
     public function follow(User $user)

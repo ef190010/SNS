@@ -21,12 +21,14 @@
                     <div class="p-3 d-flex flex-column justify-content-between">        
                     <div>
                         @if ($user->id === Auth::user()->id)
-                            <p class='edit'>
-                                [<a href="/users/{{ $user->id }}/edit">ユーザー情報編集</a>]
-                            </p>
-                            <p class='create'>
-                                [<a href="/posts/create">投稿を作成</a>]
-                            </p>
+                            <p>[<a href="/users/{{ $user->id }}/edit">ユーザー情報編集</a>]</p>
+                            <form action="/users/{{ $user->id }}" id="form_{{ $user->id }}" method="post" style="display:inline" onclick="return confirm('この操作は戻せません。本当に削除しますか？')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">ユーザーを削除</button>
+                            </form>
+                                
+                            <p>[<a href="/posts/create">投稿を作成</a>]</p>
                         @endif
                     </div>
                     <div>

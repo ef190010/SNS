@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\User;
 use Socialite;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class LoginController extends Controller
 {
@@ -74,6 +75,7 @@ class LoginController extends Controller
             'name'     => $gUser->name,
             'email'    => $gUser->email,
             'password' => \Hash::make(uniqid()),
+            'icon' => Storage::disk('s3')->url('systems/default_icon.jpg'),
         ]);
         return $user;
     }
