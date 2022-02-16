@@ -14,7 +14,7 @@ class ReplyController extends Controller
     public function show(Reply $reply)
     {   
         $replies = new Reply;
-        $replies = Reply::where('reply_id', $reply->id)->get();
+        $replies = Reply::where('reply_id', $reply->id)->orderBy('updated_at', 'desc')->get();
         $user = Auth::user();
 
         return view('replies/show')->with([

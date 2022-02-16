@@ -24,7 +24,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         // $posts = new Post;
-        $myposts = Post::where('user_id', $user->id)->get();
+        $myposts = Post::where('user_id', $user->id)->orderBy('updated_at', 'desc')->paginate(50);
         // dd($posts);
         return view('users/show')->with([
             'user' => $user,
