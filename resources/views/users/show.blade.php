@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
-        <h3>ユーザー情報</h3>
+            <h2>ユーザー情報</h2>
             <div class="back"><a href="/">タイムラインに戻る</a></div>
             <div class="login_user"><p><a href="">{{ Auth::user()->name }}</a> でログイン中</p></div>
             <div class="card">
@@ -19,86 +19,98 @@
                     </div>
 
                     <div class="p-3 d-flex flex-column justify-content-between">        
-                    <div>
-                        @if ($user->id === Auth::user()->id)
-                            <p>[<a href="/users/{{ $user->id }}/edit">ユーザー情報編集</a>]</p>
-                            <form action="/users/{{ $user->id }}" id="form_{{ $user->id }}" method="post" style="display:inline" onclick="return confirm('この操作は戻せません。本当に削除しますか？')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit">ユーザーを削除</button>
-                            </form>
+                        <div class="d-flex">
+                            <div>
+                                @if ($user->id === Auth::user()->id)
+                                    <p>[<a href="/users/{{ $user->id }}/edit">ユーザー情報編集</a>]</p>
+                                    <form action="/users/{{ $user->id }}" id="form_{{ $user->id }}" method="post" style="display:inline" onclick="return confirm('この操作は戻せません。本当に削除しますか？')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">ユーザーを削除</button>
+                                    </form>
                                 
-                            <p>[<a href="/posts/create">投稿を作成</a>]</p>
-                        @endif
-                    </div>
-                    <div>
-                        <div>
-                        @if ($user->id !== Auth::user()->id)
-                            @if (Auth::user()->isFollowed($user->id))
-                                <div class="px-2">
-                                    <span class="px-1 bg-secondary text-light">フォローされています</span>
-                                </div>
-                            @endif
-                        </div>   
-                        <div>
-                            @if (Auth::user()->isFollowing($user->id))
-                                <form action="/users/{{ $user->id }}/unfollow" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">フォロー解除</button>
-                                </form>
-                            @else   
-                                <form action="/users/{{ $user->id }}/follow" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary">フォローする</button>
-                                </form>
-                            @endif
+                                @else
+                                    @if (Auth::user()->isFollowed($user->id))
+                                        <div class="px-2">
+                                                <span class="px-1 bg-secondary text-light">フォローされています</span>
+                                            </div>
+                                    @endif
+    
+                                    @if (Auth::user()->isFollowing($user->id))
+                                        <form action="/users/{{ $user->id }}/unfollow" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">フォロー解除</button>
+                                        </form>
+                                    @else   
+                                        <form action="/users/{{ $user->id }}/follow" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary">フォローする</button>
+                                        </form>
+                                    @endif
+                                @endif
+                            </div>
                         </div>
-                        @endif
-                    </div>        
+                    <h4>プロフィール</h4>
+                    <p>{{ $user->profile }}</p>
                     <p>マイプレイス：{{ $user->prefName }}</p>
                     <p>マイカテゴリー：{{ $user->categoryName }}</p>
                     </div>
+                    
                 </div>
             </div>        
-        </div>
-            
+
         <!-- 自分の投稿一覧 -->
-        <div>
-        <h4>自分の投稿一覧</h4>
+            <h4>ユーザー投稿一覧</h4>
             @forelse ($myposts as $post)
-                <div class="col-md-8 mb-3">
-                    <div class="card">
-                        <div class="card-haeder p-3 w-100 d-flex">
-                            <img src="{{ $user->icon }}" class="rounded-circle" width="50" height="50">
-                            <div class="ml-2 d-flex flex-column flex-grow-1">
-                                <p class="mb-0">{{ $post->user->nickname }}</p>
-                                <a href="/users/{{ $post->user->id }}" class="text-secondary">{{ $post->user->_name }}[ID:{{ $post->user->id }}]</a>
-                            </div>
-                            <div class="d-flex justify-content-end flex-grow-1">
-                                <p class="mb-0 text-secondary">{{ $post->created_at->format('Y-m-d H:i') }}</p>
-                            </div>
-                        </div>                
-                        <div class="card-body">
-                            <a href='/posts/{{ $post->id }}'>{{ $post->body }}</a><br>
-                            <img src="{{ $post->image_path }}">
+                <div class="card">
+                    <div class="card-header p-3 w-100 d-flex">
+                        <img src="{{ $post->user->icon }}" class="rounded-circle" width="50" height="50">
+                        <div class="ml-2 d-flex flex-column">
+                            <p class="mb-0">{{ $post->user->nickname }}</p>
+                            <a href="/users/{{ $post->user->id }}" class="text-secondary">{{ $post->user->_name }}[ID:{{ $post->user->id }}]</a>
                         </div>
-                        <div class="card-footer py-1 d-flex justify-content-end bg-white">                        
-                            <div class="mr-3 d-flex align-items-center">
-                                <p class="mb-0 text-secondary">コメント：{{ $post->replies()->count() }}</p>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <a href="#"><i class="far fa-comment fa-fw"></i></a>
-                                <p class="mb-0 text-secondary">いいね：{{ $post->favoritePosts()->count() }}</p>
-                            </div>
+                        <div class="d-flex justify-content-end flex-grow-1">
+                            <p class="mb-0 text-secondary">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+                        </div>
+                    </div>
+                
+                    <div class="card-body">
+                        <p><a href='/posts/{{ $post->id }}'>{{ $post->body }}</a></p>
+                        @if(!is_null($post->image_path))
+                            <img src="{{ $post->image_path }}">
+                        @endif
+                    </div>
+
+                    <div class="card-footer py-1 d-flex justify-content-end bg-white">
+                    <!-- ここからいいね機能 -->
+                        @if ($post->favoritePosts()->where('user_id', Auth::user()->id)->where('post_id', $post->id)->exists())
+                            <form method="POST" action="/posts/{{ $post->id }}/unfavorite" class="mb-0">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">いいね取消</button>
+                            </form>
+                        @else
+                            <form method="POST" action="/posts/{{ $post->id }}/favorite" class="mb-0">
+                                @csrf
+                                <button type="submit">いいね</button>
+                            </form>
+                        @endif
+                    <!-- ここまで -->                            
+
+                        <div class="mr-3 d-flex align-items-center">
+                            <p class="mb-0 text-secondary">コメント：{{ $post->replies()->count() }}</p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <a href="#"><i class="far fa-comment fa-fw"></i></a>
+                            <p class="mb-0 text-secondary">いいね：{{ $post->favoritePosts()->count() }}</p>
                         </div>
                     </div>
                 </div>
             @empty
-             <p>まだ投稿はありません。</p>
+                <p>まだ投稿はありません。</p>
             @endforelse
         </div>
-    </div>    
-</div>            
-</div>
+    </div>
+</div>    
 @endsection

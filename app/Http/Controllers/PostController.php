@@ -48,10 +48,12 @@ class PostController extends Controller
     {   
         $prefs = Config::get('prefs');
         $categories = Config::get('categories');
+        $user = Auth::user();
         
         return view('posts/create')->with([
             'prefs'=>$prefs, 
             'categories'=>$categories,
+            'user'=>$user,
             ]);
     }
     
@@ -100,11 +102,13 @@ class PostController extends Controller
     {
         $prefs = Config::get('prefs');
         $categories = Config::get('categories');
+        $user = Auth::user();
 
         return view('posts/edit')->with([
             'post' => $post,
             'prefs' => $prefs,
             'categories' => $categories,
+            'user' => $user,
             ]);
     }
     
