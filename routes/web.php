@@ -22,6 +22,7 @@ Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback')
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/', 'PostController@index');
+    Route::get('/posts/search', 'PostController@search');
     Route::get('/posts/create', 'PostController@create');
     Route::post('/posts', 'PostController@store');
     Route::get('/posts/{post}', 'PostController@show');
@@ -47,5 +48,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('/posts/{post}/unfavorite', 'FavoriteController@deletePost');
     Route::post('/replies/{reply}/favorite', 'FavoriteController@storeReply');
     Route::delete('/replies/{reply}/unfavorite', 'FavoriteController@deleteReply');
-
+    
 });

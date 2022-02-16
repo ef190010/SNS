@@ -158,4 +158,18 @@ class PostController extends Controller
         return redirect('/');
     }
  
+    public function search()
+    {
+        $posts = Post::orderBy("updated_at", "desc")->where(function ($query) {
+    
+            // 検索機能
+            if ($search = request("search")) {
+                $query->Where("body","LIKE","%{$search}%");
+            }
+        })->paginate(50);
+
+        return view('/posts/search')->with([
+            'posts' => $posts
+        ]);
+    }
 }

@@ -48,6 +48,7 @@
                             <p>カテゴリー：{{ $post->categoryName }}</p>
                             <!-- ここから地図情報 -->
 	                        <div id="map" class="img-fluid"></div>
+                            <p>※今のところ地図が表示される以外の機能はありません。</p>
                             <!-- ここまで -->
                         </div>
 
