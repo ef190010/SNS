@@ -1,14 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-<title>タイムライン</title>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
-            <h2>タイムライン</h2>
+            <h2>投稿の検索(β)</h2>
+            <h5>※今のところ1単語の検索しかできません</h5>
             <p><a href="/users/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a> でログイン中</p>
+            
+            <p>
+            <form class="form-inline" method="GET">
+                <div class="form-group col-xs-6">
+                    <input class="form-control form-control-lg size=20" type="text" name="search" value="{{request("search")}}" placeholder="単語を入力（本文の検索）" aria-label="検索...">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="検索" class="btn btn-info">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-secondary">
+                        <a href="/posts/search" class="text-white">クリア</a>
+                    </button>
+                </div>
+            </form>
+            </p>
 
+            <h3>検索結果</h3>
             @forelse ($posts as $post)
                     <div class="card"> 
                         <div class="card-header p-3 w-100 d-flex">
@@ -55,7 +71,7 @@
                         </div>
                     </div>
             @empty
-                <p>投稿はまだありません</p>
+                <p>検索結果はありません。</p>
             @endforelse
         
             <div class="my-4 d-flex justify-content-center">

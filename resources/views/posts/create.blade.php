@@ -35,26 +35,27 @@
                                 <p>※各タグの先頭には#をつけてください。（例：#富士山 #ご来光）</p>
                                 
                                 <p>ジャンル　
-                                <select name="post[categories]">
+                                <select class="form-control" name="post[categories]">
                                     @foreach($categories as $key => $name)
                                         <option value="{{ $key }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
                                 </p>
         
-                                <p>都道府県　
-                                <select name="post[prefs]">
+                                <p>都道府県
+                                <select class="form-control" name="post[prefs]">
                                     @foreach($prefs as $key => $name)
                                         <option value="{{ $key }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
+                                </div>
                                 </p>
             
-                                <p>
-                                <label for="photo">画像ファイル：</label>
-                                <input type="file" name="file">
-                                <p class="image_error" style="color:red">{{ $errors->first('file') }}</p>
-                                </p>
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">画像ファイル：</label>
+                                    <input class=form-control id="formFile" type="file" name="file">
+                                    <p class="image_error" style="color:red">{{ $errors->first('file') }}</p>
+                                </div>
                             </div>                
                         </div>
                         <div class="form-group row mb-0">

@@ -52,6 +52,9 @@
                             @endif
                         @else
                             <li class="nav-item mr-5">
+                                <a href="/posts/search" class="btn btn-md btn-success">投稿を検索</a>
+                            </li>                            
+                            <li class="nav-item mr-5">
                                 <a href="/posts/create" class="btn btn-md btn-primary">投稿を作成</a>
                             </li>                            
                             <li class="nav-item">
