@@ -15,10 +15,12 @@ class ReplyController extends Controller
     {   
         $replies = new Reply;
         $replies = Reply::where('reply_id', $reply->id)->get();
+        $user = Auth::user();
 
         return view('replies/show')->with([
             'reply' => $reply,
             'replies' => $replies,
+            'user' => $user,
              ]);
     }    
 
@@ -46,8 +48,11 @@ class ReplyController extends Controller
 
     public function edit(Reply $reply)
     {
+        $user = Auth::user();
+        
         return view('replies/edit')->with([
             'reply' => $reply,
+            'user' => $user,
         ]);
     }
  
