@@ -33,7 +33,7 @@ class PostController extends Controller
     */
     public function show(Post $post, Reply $reply)
     {   
-        $reply = Reply::where('post_id', $post->id)->get();
+        $reply = Reply::where('post_id', $post->id)->orderBy('updated_at', 'desc')->get();
         // リレーションメソッド(userメソッド、ReplyControllerで使用)はModel（Replyクラス）経由で取得した情報にしか使えない
         // $reply = DB::table('replies')->where('post_id', $post->id)->get();
 

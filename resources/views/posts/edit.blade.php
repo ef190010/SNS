@@ -54,7 +54,7 @@
                                 @if (is_null($post->image_path))
                                     <p>画像はありません。</p>
                                 @else
-                                    <img src="{{ $post->image_path }}">
+                                    <img src="{{ $post->image_path }}" class="img-fluid">
                                 @endif
                                 <p>
                                 <label for="photo">画像ファイル：</label>

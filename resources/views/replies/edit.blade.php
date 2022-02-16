@@ -34,7 +34,7 @@
                                 @if (is_null($reply->image_path))
                                     <p>画像はありません。</p>
                                 @else
-                                    <img src="{{ $reply->image_path }}">
+                                    <img src="{{ $reply->image_path }}" class="img-fluid">
                                 @endif
                                 <p>
                                 <label for="photo">画像ファイル：</label>

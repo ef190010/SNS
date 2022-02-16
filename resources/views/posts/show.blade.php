@@ -17,7 +17,7 @@
                         <a href="/users/{{ $post->user->id }}" class="text-secondary">{{ $post->user->name }}[ID:{{ $post->user->id }}]</a>
                     </div>
                     <div class="d-flex justify-content-end flex-grow-1">
-                        <p class="mb-0 text-secondary">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+                        <p class="mb-0 text-secondary">{{ $post->updated_at->format('Y-m-d H:i') }}</p>
                     </div>
                 </div>                    
                     
@@ -33,7 +33,7 @@
 
                             <p><a href='/posts/{{ $post->id }}'>{{ $post->body }}</a></p>
                             @if(!is_null($post->image_path))
-                                <img src="{{ $post->image_path }}">
+                                <img src="{{ $post->image_path }}" class="img-fluid">
                             @endif
                     </div>
                         <div class="card-body">
@@ -47,7 +47,7 @@
                             <p>場所：{{ $post->prefName }}</p>
                             <p>カテゴリー：{{ $post->categoryName }}</p>
                             <!-- ここから地図情報 -->
-	                        <div id="map"></div>
+	                        <div id="map" class="img-fluid"></div>
                             <!-- ここまで -->
                         </div>
 
@@ -118,14 +118,14 @@
                             <a href="/users/{{ $reply->user->id }}" class="text-secondary">{{ $reply->user->name }}[ID:{{ $reply->user->id }}]</a>
                         </div>
                         <div class="d-flex justify-content-end flex-grow-1">
-                            <p class="mb-0 text-secondary">{{ $reply->created_at->format('Y-m-d H:i') }}</p>
+                            <p class="mb-0 text-secondary">{{ $reply->updated_at->format('Y-m-d H:i') }}</p>
                         </div>
                     </div>
                         
                     <div class="card-body">
                         <p><a href="/replies/{{ $reply->id }}">{{ $reply->body }}</a></p>
                         @if(!is_null($reply->image_path))
-                            <img src="{{ $reply->image_path }}">
+                            <img src="{{ $reply->image_path }}" class="img-fluid">
                         @endif
                     </div>
                     

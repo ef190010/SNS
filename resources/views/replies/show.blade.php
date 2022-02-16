@@ -21,7 +21,7 @@
                         <a href="/users/{{ $reply->user->id }}" class="text-secondary">{{ $reply->user->name }}[ID:{{ $reply->user->id }}]</a>
                     </div>
                     <div class="d-flex justify-content-end flex-grow-1">
-                        <p class="mb-0 text-secondary">{{ $reply->created_at->format('Y-m-d H:i') }}</p>
+                        <p class="mb-0 text-secondary">{{ $reply->updated_at->format('Y-m-d H:i') }}</p>
                     </div>
                 </div>                    
 
@@ -37,7 +37,7 @@
 
                     <p><a href='/posts/{{ $reply->id }}'>{{ $reply->body }}</a></p>
                     @if(!is_null($reply->image_path))
-                        <img src="{{ $reply->image_path }}">
+                        <img src="{{ $reply->image_path }}" class="img-fluid">
                     @endif            
                 </div>
 
@@ -109,14 +109,14 @@
                                 <a href="/users/{{ $reply->user->id }}" class="text-secondary">{{ $reply->user->name }}[ID:{{ $reply->user->id }}]</a>
                             </div>
                             <div class="d-flex justify-content-end flex-grow-1">
-                                <p class="mb-0 text-secondary">{{ $reply->created_at->format('Y-m-d H:i') }}</p>
+                                <p class="mb-0 text-secondary">{{ $reply->updated_at->format('Y-m-d H:i') }}</p>
                             </div>
                         </div>
                         
                         <div class="py-3">
                             <p><a href="/replies/{{ $reply->id }}">{{ $reply->body }}</a></p>
                             @if(!is_null($reply->image_path))
-                                <img src="{{ $reply->image_path }}">
+                                <img src="{{ $reply->image_path }}" class="img-fluid">
                             @endif
                         </div>
                     

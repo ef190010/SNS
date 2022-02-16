@@ -16,14 +16,14 @@
                                 <a href="/users/{{ $post->user->id }}" class="text-secondary">{{ $post->user->name }}[ID:{{ $post->user->id }}]</a>
                             </div>
                             <div class="d-flex justify-content-end flex-grow-1">
-                                <p class="mb-0 text-secondary">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+                                <p class="mb-0 text-secondary">{{ $post->updated_at->format('Y-m-d H:i') }}</p>
                             </div>
                         </div>                    
                     
                         <div class="card-body">
                             <p><a href='/posts/{{ $post->id }}'>{{ $post->body }}</a></p>
                             @if(!is_null($post->image_path))
-                                <img src="{{ $post->image_path }}">
+                                <img src="{{ $post->image_path }}" class="img-fluid">
                             @endif
                         </div>
                         
@@ -59,6 +59,7 @@
             <div class="my-4 d-flex justify-content-center">
                 {{ $posts->links() }}
             </div>
+
         </div>
     </div>
 </div>

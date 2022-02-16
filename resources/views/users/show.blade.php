@@ -6,8 +6,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
             <h2>ユーザー情報</h2>
-            <div class="back"><a href="/">タイムラインに戻る</a></div>
-            <div class="login_user"><p><a href="">{{ Auth::user()->name }}</a> でログイン中</p></div>
+            <a href="/">タイムラインに戻る</a>
+            <p><a href="/users/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a> でログイン中</p>
             <div class="card">
                 <div class="d-inline-flex">            
                     <div class="p-3 d-flex flex-column">
@@ -68,17 +68,17 @@
                         <img src="{{ $post->user->icon }}" class="rounded-circle" width="50" height="50">
                         <div class="ml-2 d-flex flex-column">
                             <p class="mb-0">{{ $post->user->nickname }}</p>
-                            <a href="/users/{{ $post->user->id }}" class="text-secondary">{{ $post->user->_name }}[ID:{{ $post->user->id }}]</a>
+                            <a href="/users/{{ $post->user->id }}" class="text-secondary">{{ $post->user->name }}[ID:{{ $post->user->id }}]</a>
                         </div>
                         <div class="d-flex justify-content-end flex-grow-1">
-                            <p class="mb-0 text-secondary">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+                            <p class="mb-0 text-secondary">{{ $post->updated_at->format('Y-m-d H:i') }}</p>
                         </div>
                     </div>
                 
                     <div class="card-body">
                         <p><a href='/posts/{{ $post->id }}'>{{ $post->body }}</a></p>
                         @if(!is_null($post->image_path))
-                            <img src="{{ $post->image_path }}">
+                            <img src="{{ $post->image_path }}" class="img-fluid">
                         @endif
                     </div>
 
@@ -110,6 +110,11 @@
             @empty
                 <p>まだ投稿はありません。</p>
             @endforelse
+            
+            <div class="my-4 d-flex justify-content-center">
+                {{ $myposts->links() }}
+            </div>
+            
         </div>
     </div>
 </div>    
