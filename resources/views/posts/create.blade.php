@@ -48,7 +48,6 @@
                                         <option value="{{ $key }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
-                                </div>
                                 </p>
             
                                 <div class="mb-3">
