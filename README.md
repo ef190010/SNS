@@ -1,78 +1,65 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# たびシェア
+## 概要
+本アプリは、「旅に特化したSNSアプリ」です。    
+投稿者は文章や写真とともに、旅のジャンル（アウトドア、グルメなど）や旅先の都道府県を投稿することができます。	    
+閲覧者は全投稿を一覧で見られるほか、いいねの押下やキーワード検索なども可能です。 
+
+## 作成した背景/目的
+私は旅行を趣味としており、旅先の写真や経験をSNSアプリに投稿し、思い出として記録しています。     
+また、SNSアプリで他の人の旅の投稿を見て、疑似的に楽しんだり自身の旅行計画に反映させることもあります。    
+
+しかしながら、現在普及しているSNSアプリは様々なジャンルの情報が錯綜しており、整理をつけるのが難しくなっています。    
+一方で、旅を記録するアプリ自体は既にありますが、SNSのように気軽に投稿できるものはあまりないと感じました。    
+
+そこで、本アプリは旅に特化させることでこれらの問題の解決し、旅という非日常を自他ともに楽しめるような場の構築を目指します。    
+
+## 開発環境
+* Windows10
+* HTML/CSS　Bootstrap　Vue.js
+* PHP　Laravel
+* MariaDB　MySQL
+* AWS（Cloud9, S3）
+* Google APIs（OAuth 2.0 認証, Maps Javascript API）
+* Github（https://github.com/ef190010/SNS）
+* Heroku（https://morning-river-34886.herokuapp.com）
+
+## 注力した機能
+1．コメント機能
+* 投稿詳細画面でコメントの作成・一覧を完結させ、使いやすさを意識しました。    
+* コメントに対するコメントも可能にしました。    
+![image](https://user-images.githubusercontent.com/94438712/155583441-f63f78d9-15eb-4652-a180-e46b1e1a897a.png)
+![image](https://user-images.githubusercontent.com/94438712/155583459-4b66e188-26c6-42d4-983a-824fa23bfd7a.png)
+
+2．タグ機能
+* 多対多のリレーションを組み、投稿作成でタグが入力されるとtagsテーブルに入るようにしました。
+* 入力フォーム内で「#」で区切ることでタグの分割を可能にしました。     
+![image](https://user-images.githubusercontent.com/94438712/155583698-35cac926-1fe7-4626-8e85-98e383d24588.png)
+![image](https://user-images.githubusercontent.com/94438712/155583708-b40ea08d-abc8-4e6a-81ae-a8fa27449a3a.png)
+
+3．ジャンル選択機能・都道府県選択機能
+* Configフォルダ内にphpファイルを作り、連想配列として扱いました。    
+* DBの数が減り、複雑さが多少改善しました。    
+(スクリーンショット準備中)
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+    <img src="" title="" width="80%">
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## テーブル定義
+#### ※工事中
+#### usersテーブル
+|  カラム名  |  データ型  |  詳細  |
+| ---- | ---- | ---- |
+|  id  |  bigint(20) unsigned  |  ID  |
+|  name  |  varchar(255)  |  アカウント名  |
+|  password  |  varchar(255)  |  パスワード  |
+|  rememberToken  |  varchar(100)  |  ログイン状態を保持  |
+|  nickname  |    |  ニックネーム  |
+|  icon  |    |  アイコン画像  |
+|  category  |    |  投稿のカテゴリー  |
+|  pref  |    |  都道府県  |
+|  created_at  |  timestamp  |  データ作成時刻  |
+|  updated_at |  timestamp  |  データ更新時刻  |
+|  deleted_at  |  timestamp  | データ消去時刻  |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
