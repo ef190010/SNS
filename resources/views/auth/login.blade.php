@@ -72,6 +72,10 @@
                     </div>
                 </div>
             </div>
+            <h5>テスト用アカウント</h5>
+            <p>メールアドレス：sample@sample　パスワード：testtest
+            <br><span style="color:red">（機能紹介のためアクセス制限はかけていませんが、メールアドレス・パスワードを含むユーザー情報は編集しないでください。）</span></p>
+            
         </div>
     </div>
 </div>
