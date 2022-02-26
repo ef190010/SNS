@@ -1,14 +1,89 @@
-// googleMapsAPIを持ってくるときに,callback=initMapと記述しているため、initMap関数を作成
+var marker;
+
 function initMap() {
-    // welcome.blade.phpで描画領域を設定するときに、id=mapとしたため、その領域を取得し、mapに格納します。
-    var map = document.getElementById("map");
-    // 東京タワーの緯度は35.6585769,経度は139.7454506と事前に調べておいた
-    var tokyoTower = {lat: 35.6585769, lng: 139.7454506};
-    // オプションを設定
-    var opt = {
-        zoom: 13, //地図の縮尺を指定
-        center: tokyoTower, //センターを東京タワーに指定
-    };
-    // 地図のインスタンスを作成します。第一引数にはマップを描画する領域、第二引数にはオプションを指定
-    var mapObj = new google.maps.Map(map, opt);
+
+    // マップの初期化
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: {lat: 35.6809591, lng: 139.7673068}
+    });
+
+    // クリックイベントを追加
+    map.addListener('click', function(e) {
+        getClickLatLng(e.latLng, map);
+    });
+}
+
+function getClickLatLng(lat_lng, map) {
+
+    // 座標を表示
+    // var lat = lat_lng.lat();
+    // var lng = lat_lng.lng();
+    
+    document.getElementById('lat').value = lat_lng.lat();
+    document.getElementById('lng').value = lat_lng.lng();
+
+    // マーカーを設置
+    if (marker) {
+        marker.setMap(null);
+    }
+    marker = new google.maps.Marker({
+        position: lat_lng,
+        map: map
+    });
+}
+
+function deleteMarker() {
+    marker.setMap(null);
+    marker = null;
+    document.getElementById('lat').value = null;
+    document.getElementById('lng').value = null;
+}
+
+function showMap() {
+    var lat = Number(document.getElementById('js-getLat').dataset.name);
+    var lng = Number(document.getElementById('js-getLng').dataset.name);
+    // console.log(typeof(lat));
+    // マップの初期化
+    var point = {lat: lat, lng: lng}
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: point,
+    });
+    
+    marker = new google.maps.Marker({
+        // ピンを差す位置を決めます。
+        position: point,
+	    // ピンを差すマップを決めます。
+        map: map,
+	    // ホバーしたときに「」と表示されるようにします。
+        // title: '',    
+    });    
+}
+
+function editMap() {
+    var lat = Number(document.getElementById('js-getLat').dataset.name);
+    var lng = Number(document.getElementById('js-getLng').dataset.name);
+    // console.log(typeof(lat));
+    // マップの初期化
+    var point = {lat: lat, lng: lng}
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: point,
+    });
+    
+    marker = new google.maps.Marker({
+        // ピンを差す位置を決めます。
+        position: point,
+	    // ピンを差すマップを決めます。
+        map: map,
+	    // ホバーしたときに「」と表示されるようにします。
+        // title: '',    
+    });    
+
+    // クリックイベントを追加
+    map.addListener('click', function(e) {
+        getClickLatLng(e.latLng, map);
+    });
+    
 }
