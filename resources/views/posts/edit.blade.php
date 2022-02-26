@@ -33,6 +33,8 @@
                                 <input type="text" name="tags" value="@foreach($post->tags as $tag) #{{ $tag->name }} @endforeach"/>
                                 <p class="tag_error" style="color:red">{{ $errors->first('tags') }}</p>
                                 </p>
+                                <p>※各タグの先頭には#をつけてください。（例：#富士山 #ご来光）</p>
+                                
         
                                 <p>ジャンル
                                 <select name="post[categories]">
@@ -61,7 +63,9 @@
                                 <input type="file" name="file">
                                 <p class="image_error" style="color:red">{{ $errors->first('file') }}</p>
                                 </p>
+                                
                                 <!-- ここから地図情報 -->
+	                            <p>位置情報（クリックでピンが刺せます）
 	                            <div id="map" class="img-fluid"></div>
 	                            <span id="js-getLat" data-name="{{ $post->lat }}"></span>
 	                            <span id="js-getLng" data-name="{{ $post->lng }}"></span>
@@ -69,6 +73,7 @@
                                 <input type="hidden" name="post[lat]" id="lat">
                                 <input type="hidden" name="post[lng]" id="lng">
                                 <input type="button" class="btn btn-danger" value="ピンを削除" onclick="deleteMarker()">
+                                </p>
                                 <!-- ここまで -->
                                 
                             </div>

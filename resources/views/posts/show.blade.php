@@ -50,9 +50,11 @@
                             <p>カテゴリー：{{ $post->categoryName }}</p>
                             
                             <!-- ここから地図情報 -->
+                            @if ($post->lat)
 	                            <div id="map" class="img-fluid"></div>
 	                            <span id="js-getLat" data-name="{{ $post->lat }}"></span>
 	                            <span id="js-getLng" data-name="{{ $post->lng }}"></span>
+                            @endif
                             <!-- ここまで -->
                         </div>
 

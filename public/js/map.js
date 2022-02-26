@@ -67,19 +67,27 @@ function editMap() {
     // console.log(typeof(lat));
     // マップの初期化
     var point = {lat: lat, lng: lng}
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: point,
-    });
+
+    if (lat == 0 && lng == 0 ) {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: {lat: 35.6809591, lng: 139.7673068}
+        })
+    } else {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 13,
+            center: point,
+        });
     
-    marker = new google.maps.Marker({
-        // ピンを差す位置を決めます。
-        position: point,
-	    // ピンを差すマップを決めます。
-        map: map,
-	    // ホバーしたときに「」と表示されるようにします。
-        // title: '',    
-    });    
+        marker = new google.maps.Marker({
+            // ピンを差す位置を決めます。
+            position: point,
+	        // ピンを差すマップを決めます。
+            map: map,
+	        // ホバーしたときに「」と表示されるようにします。
+            // title: '',    
+        });    
+    }
 
     // クリックイベントを追加
     map.addListener('click', function(e) {
