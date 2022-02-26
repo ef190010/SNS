@@ -26,7 +26,7 @@
                                     <form action="/users/{{ $user->id }}" id="form_{{ $user->id }}" method="post" style="display:inline" onclick="return confirm('この操作は戻せません。本当に削除しますか？')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit">ユーザーを削除</button>
+                                        <button type="submit" class="btn btn-danger">ユーザーを削除</button>
                                     </form>
                                 
                                 @else

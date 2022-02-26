@@ -20,6 +20,8 @@ class CreatePostsTable extends Migration
             $table->string('image_path')->nullable();
             $table->unsignedInteger('prefs');
             $table->unsignedInteger('categories');
+            $table->double('lat', 8, 6)->nullable();
+            $table->double('lng', 9, 6)->nullable();
             $table->timestamps();
             $table->softDeletes();
             

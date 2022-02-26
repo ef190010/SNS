@@ -28,11 +28,13 @@
                 <div class="card-body">
                     @if ($reply->user->id === Auth::user()->id)        
                         <p>[<a href="/replies/{{ $reply->id }}/edit">この返信を編集</a>]</p>
+                        <p>
                         <form action="/replies/{{ $reply->id }}" id="form_{{ $reply->id }}" method="POST" style="display:inline" onclick="return confirm('本当に削除しますか?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit">この返信を削除</button> 
                         </form>
+                        </p>
                     @endif
 
                     <p><a href='/posts/{{ $reply->id }}'>{{ $reply->body }}</a></p>
@@ -47,7 +49,7 @@
                         <form method="POST" action="/replies/{{ $reply->id }}/unfavorite" class="mb-0">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">いいね取消</button>
+                            <button type="submit" class="btn btn-danger">いいね取消</button>
                         </form>
                     @else
                         <form method="POST" action="/replies/{{ $reply->id }}/favorite" class="mb-0">
@@ -72,8 +74,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
             <h3>この返信にコメント</h3>
-            <input type="button" value="作成画面を表示" onclick="clickBtn2()" />
-            <div id="create_reply">
+            <input type="button" value="作成画面を表示" onclick="clickBtn1()" class="btn btn-info" />
+            <div id="create_reply" class="card">
                 <form action="/replies" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input name="reply[reply_id]" type="hidden" value={{ $reply->id }}>
@@ -82,9 +84,9 @@
                         <p class="body_error" style="color:red">{{ $errors->first('reply.body') }}</p>
                     </div>
                 
-                    <div class='image'>
-                        <label for="photo">画像ファイル：</label>
-                        <input type="file" name="file">
+                    <div class='mb-3'>
+                        <label for="formFile" class="form-label">画像ファイル：</label>
+                        <input class="form-control" id="formFile" type="file" name="file">
                         <p class="image_error" style="color:red">{{ $errors->first('file') }}</p>
                     </div>
             
@@ -99,7 +101,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
             <ul class="list-group">    
-                <h3>返信一覧</h3>
+                <h3>コメント一覧</h3>
                 @forelse($replies as $reply)
                     <li class="list-group-item">
                         <div class="py-3 w-100 d-flex">
@@ -154,17 +156,7 @@
         </div>
     </div>
 </div>    
-                    <script>
-                        document.getElementById("create_reply").style.display = "none";
-                
-                        function clickBtn2(){
-            	            const p2 = document.getElementById("create_reply");
-                
-	                        if(p2.style.display=="block"){
-	                            p2.style.display ="none";
-                            }else{
-                                p2.style.display ="block";
-                            }
-                        }
-                    </script>            
+
+<script src="{{ asset('/js/showform.js') }}" defer></script>
+
 @endsection

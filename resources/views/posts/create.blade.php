@@ -55,7 +55,18 @@
                                     <input class=form-control id="formFile" type="file" name="file">
                                     <p class="image_error" style="color:red">{{ $errors->first('file') }}</p>
                                 </div>
-                            </div>                
+                                
+                                <!-- ここから地図情報 -->
+	                            <p>位置情報（クリックでピンが刺せます）
+	                            <div id="map" class="img-fluid"></div>
+                                <input type="hidden" name="post[lat]" id="lat">
+                                <input type="hidden" name="post[lng]" id="lng">
+                                <input type="button" class="btn btn-danger" value="ピンを削除" onclick="deleteMarker()">
+                                </p>
+                                <!-- ここまで -->
+
+                                
+                            </div>            
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-12 text-right">                        
@@ -69,5 +80,9 @@
             </div>
         </div>
     </div>
-</div>        
+</div>
+
+<script src="{{ asset('/js/map.js') }}" defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key={{ config('services.googlemap.apikey') }}&callback=initMap" defer>
+</script>
 @endsection

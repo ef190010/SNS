@@ -61,6 +61,16 @@
                                 <input type="file" name="file">
                                 <p class="image_error" style="color:red">{{ $errors->first('file') }}</p>
                                 </p>
+                                <!-- ここから地図情報 -->
+	                            <div id="map" class="img-fluid"></div>
+	                            <span id="js-getLat" data-name="{{ $post->lat }}"></span>
+	                            <span id="js-getLng" data-name="{{ $post->lng }}"></span>
+	                            
+                                <input type="hidden" name="post[lat]" id="lat">
+                                <input type="hidden" name="post[lng]" id="lng">
+                                <input type="button" class="btn btn-danger" value="ピンを削除" onclick="deleteMarker()">
+                                <!-- ここまで -->
+                                
                             </div>
                         </div>
                         
@@ -77,4 +87,9 @@
         </div>
     </div>
 </div>
+
+<script src="{{ asset('/js/map.js') }}" defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key={{ config('services.googlemap.apikey') }}&callback=editMap" defer>
+</script>
+
 @endsection

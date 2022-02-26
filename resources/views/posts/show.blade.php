@@ -24,11 +24,13 @@
                     <div class="card-body">
                         @if ($post->user->id === Auth::user()->id)        
                             <p>[<a href="/posts/{{ $post->id }}/edit">この投稿を編集</a>]</p>
+                            <p>
                             <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post" style="display:inline" onclick="return confirm('本当に削除しますか?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">この投稿を削除</button>
+                                <button type="submit" class="btn btn-danger">この投稿を削除</button>
                             </form>
+                            </p>
                         @endif 
 
                             <p><a href='/posts/{{ $post->id }}'>{{ $post->body }}</a></p>
@@ -46,9 +48,11 @@
                             </p>
                             <p>場所：{{ $post->prefName }}</p>
                             <p>カテゴリー：{{ $post->categoryName }}</p>
+                            
                             <!-- ここから地図情報 -->
-	                        <div id="map" class="img-fluid"></div>
-                            <p>※今のところ地図が表示される以外の機能はありません。</p>
+	                            <div id="map" class="img-fluid"></div>
+	                            <span id="js-getLat" data-name="{{ $post->lat }}"></span>
+	                            <span id="js-getLng" data-name="{{ $post->lng }}"></span>
                             <!-- ここまで -->
                         </div>
 
@@ -58,7 +62,7 @@
                                 <form method="POST" action="/posts/{{ $post->id }}/unfavorite" class="mb-0">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit">いいね取消</button>
+                                    <button type="submit" class="btn btn-danger">いいね取消</button>
                                 </form>
                             @else
                                 <form method="POST" action="/posts/{{ $post->id }}/favorite" class="mb-0">
@@ -83,7 +87,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">            
             <h3>この投稿に返信</h3>
-            <input type="button" value="作成画面を表示" onclick="clickBtn1()" />
+            <input type="button" value="作成画面を表示" onclick="clickBtn1()" class="btn btn-info"/>
             <div id="create_reply" class="card">
                 <form action="/replies" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -93,9 +97,9 @@
                         <p class="body_error" style="color:red">{{ $errors->first('reply.body') }}</p>
                     </div>
                 
-                    <div class='image'>
-                        <label for="photo">画像ファイル：</label>
-                        <input type="file" name="file">
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">画像ファイル：</label>
+                        <input class=form-control id="formFile" type="file" name="file">
                         <p class="image_error" style="color:red">{{ $errors->first('file') }}</p>
                     </div>
             
@@ -161,21 +165,12 @@
     	</div>
     </div>
 </div>
-    	    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key={{ config('services.googlemap.apikey') }}&callback=initMap" defer>
-    	    </script>
 
-            <script>
-                document.getElementById("create_reply").style.display = "none";
-            
-                function clickBtn1(){
-                	const p1 = document.getElementById("create_reply");
-            
-	                if(p1.style.display=="block"){
-		                p1.style.display ="none";
-	                }else{
-    		            p1.style.display ="block";
-	                }
-                }
-            </script>            
+<script src="{{ asset('/js/map.js') }}" defer></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key={{ config('services.googlemap.apikey') }}&callback=showMap" defer>
+</script>
+
+<script src="{{ asset('/js/showform.js') }}" defer></script>
 
 @endsection

@@ -16,6 +16,8 @@ class Post extends Model
         'categories',
         'prefs',
         'image_path',
+        'lat',
+        'lng',
         // 'file',
     ];
 

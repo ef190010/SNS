@@ -71,6 +71,7 @@ class PostController extends Controller
         }
         
         $post->fill($input)->save();
+        // dd($post);
         // 上の行は $post->create($input）としても良い
         
         if ($request->tags) {

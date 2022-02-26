@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
-            <h2>投稿の検索(β)</h2>
-            <h5>※今のところ1単語の検索しかできません</h5>
+            <h2>投稿の検索(β版)</h2>
+            <h5>※現段階では1単語の本文検索しかできません</h5>
             <p><a href="/users/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a> でログイン中</p>
             
             <p>
