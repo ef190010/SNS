@@ -129,7 +129,7 @@ class PostController extends Controller
         
         if ($request->tags) {
             // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
-            preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $request->tags, $match);
+            preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $request->tags, $match);
 
             // match[0]に#あり、$match[1]に#が返ってくる。今回使うのは後者。
             $tags = [];
