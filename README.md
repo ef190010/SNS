@@ -1,8 +1,9 @@
 # たびシェア
 ## 概要
 本アプリは、「旅に特化したSNSアプリ」です。    
-投稿者は文章や写真とともに、旅のジャンル（アウトドア、グルメなど）や旅先の都道府県を投稿することができます。	    
+投稿者は文章や写真とともに、旅のジャンル（アウトドア、グルメなど）や旅先の都道府県、位置情報を投稿することができます。	    
 閲覧者は全投稿を一覧で見られるほか、いいねの押下やキーワード検索なども可能です。 
+<img src="https://user-images.githubusercontent.com/94438712/155878671-aa5cc881-98af-45c7-ab78-f37b78c1e30e.png" width="80%">
 
 ## 作成した背景/目的
 私は旅行を趣味としており、旅先の写真や経験をSNSアプリに投稿し、思い出として記録しています。     
@@ -14,52 +15,43 @@
 そこで、本アプリは旅に特化させることでこれらの問題の解決し、旅という非日常を自他ともに楽しめるような場の構築を目指します。    
 
 ## 開発環境
-* Windows10
-* HTML/CSS　Bootstrap　Vue.js
-* PHP　Laravel
-* MariaDB　MySQL
-* AWS（Cloud9, S3）
+* HTML5/CSS3
+* Bootstrap v4.6.1
+* PHP v8.0.13
+* Laravel v6.20.44
+* MariaDB v10.2.38
+* AWS（Cloud9, EC2, S3）
 * Google APIs（OAuth 2.0 認証, Maps Javascript API）
 * Github（https://github.com/ef190010/SNS）
 * Heroku（https://morning-river-34886.herokuapp.com）
 
+## 機能一覧
+* 認証機能
+* API認証機能（Google OAuth 2.0）
+* ユーザー情報設定・編集機能
+* ユーザーフォロー機能
+* 投稿機能（CRUD）
+* 位置情報機能（GoogleMaps API）
+* 返信(コメント)機能（CRUD）
+* いいね機能
+* 検索機能
+* ページネーション機能
+
 ## 注力した機能
-1．コメント機能
-* 投稿詳細画面でコメントの作成・一覧を完結させ、使いやすさを意識しました。    
+1．投稿詳細画面・コメント機能
+* 投稿詳細画面でコメントの作成・一覧を完結させ、使いやすさを意識しました。  
 * コメントに対するコメントも可能にしました。    
-![image](https://user-images.githubusercontent.com/94438712/155583441-f63f78d9-15eb-4652-a180-e46b1e1a897a.png)
-![image](https://user-images.githubusercontent.com/94438712/155583459-4b66e188-26c6-42d4-983a-824fa23bfd7a.png)
+<img src="https://user-images.githubusercontent.com/94438712/155876297-6b39f786-841d-4cb2-bf5e-1f1290573f4b.png" width="50%"><img src="https://user-images.githubusercontent.com/94438712/155876302-734dd188-6fe2-4154-8206-57816f504a64.png" width="50%">
 
 2．タグ機能
 * 多対多のリレーションを組み、投稿作成でタグが入力されるとtagsテーブルに入るようにしました。
 * 入力フォーム内で「#」で区切ることでタグの分割を可能にしました。     
-![image](https://user-images.githubusercontent.com/94438712/155583698-35cac926-1fe7-4626-8e85-98e383d24588.png)
-![image](https://user-images.githubusercontent.com/94438712/155583708-b40ea08d-abc8-4e6a-81ae-a8fa27449a3a.png)
+<img src="https://user-images.githubusercontent.com/94438712/155876124-d1197308-fed7-46c9-a0d4-bd0f595dccc6.png" width="50%"><img src="https://user-images.githubusercontent.com/94438712/155876718-79dbbdda-6919-4447-aff9-837d82907214.png" width="50%">
 
-3．ジャンル選択機能・都道府県選択機能
-* Configフォルダ内にphpファイルを作り、連想配列として扱いました。    
-* DBの数が減り、複雑さが多少改善しました。    
-(スクリーンショット準備中)
+3．位置情報機能
+* GoogleMaps APIを利用し、投稿時に地図上にピンを刺せるようにしました。編集も可能です。  
+* ピンの位置は座標としてDBに保存され、投稿詳細画面ではこれを呼び出してピンを表示しています。
+<img src="https://user-images.githubusercontent.com/94438712/155876130-985918af-a224-47a9-afe2-b97f37d737fe.png" width="50%"><img src="https://user-images.githubusercontent.com/94438712/155876693-332087a7-c324-468b-a12c-ecc7d1fcc17b.png" width="50%">
 
-<p align="center">
-    <img src="" title="" width="80%">
-</p>
-
-
-## テーブル定義
-#### ※工事中
-#### usersテーブル
-|  カラム名  |  データ型  |  詳細  |
-| ---- | ---- | ---- |
-|  id  |  bigint(20) unsigned  |  ID  |
-|  name  |  varchar(255)  |  アカウント名  |
-|  password  |  varchar(255)  |  パスワード  |
-|  rememberToken  |  varchar(100)  |  ログイン状態を保持  |
-|  nickname  |    |  ニックネーム  |
-|  icon  |    |  アイコン画像  |
-|  category  |    |  投稿のカテゴリー  |
-|  pref  |    |  都道府県  |
-|  created_at  |  timestamp  |  データ作成時刻  |
-|  updated_at |  timestamp  |  データ更新時刻  |
-|  deleted_at  |  timestamp  | データ消去時刻  |
-
+## E-R図
+<img src="https://user-images.githubusercontent.com/94438712/155878550-f63729b1-3dd9-4d4d-8578-18444cb0e847.png" width="80%">
