@@ -23,12 +23,13 @@
                             <div>
                                 @if ($user->id === Auth::user()->id)
                                     <p>[<a href="/users/{{ $user->id }}/edit">ユーザー情報編集</a>]</p>
+                                    <p>
                                     <form action="/users/{{ $user->id }}" id="form_{{ $user->id }}" method="post" style="display:inline" onclick="return confirm('この操作は戻せません。本当に削除しますか？')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">ユーザーを削除</button>
                                     </form>
-                                
+                                    </p>
                                 @else
                                     @if (Auth::user()->isFollowed($user->id))
                                         <div class="px-2">
@@ -37,16 +38,20 @@
                                     @endif
     
                                     @if (Auth::user()->isFollowing($user->id))
+                                        <p>
                                         <form action="/users/{{ $user->id }}/unfollow" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">フォロー解除</button>
                                         </form>
+                                        </p>
                                     @else   
+                                        <p>
                                         <form action="/users/{{ $user->id }}/follow" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-primary">フォローする</button>
                                         </form>
+                                        </p>
                                     @endif
                                 @endif
                             </div>
@@ -61,7 +66,7 @@
             </div>        
 
         <!-- 自分の投稿一覧 -->
-            <h4>ユーザー投稿一覧</h4>
+            <p><h4>ユーザー投稿一覧</h4></p>
             @forelse ($myposts as $post)
                 <div class="card">
                     <div class="card-header p-3 w-100 d-flex">
