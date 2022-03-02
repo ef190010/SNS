@@ -26,7 +26,7 @@ class PostController extends Controller
     }
 
     /**
-    * 特定IDのpostを表示する
+    * 特定IDのPost詳細を表示する
     *
     * @params Object Post // 引数の$postはid=1のPostインスタンス
     * @return Reposnse post view
@@ -44,6 +44,7 @@ class PostController extends Controller
         
     }
     
+    // Post作成を表示
     public function create()
     {   
         $prefs = Config::get('prefs');
@@ -57,13 +58,14 @@ class PostController extends Controller
             ]);
     }
     
+    // Post新規作成を保存
     public function store(Post $post, PostRequest $request, )
     {
         $input = $request['post'];
         $input['user_id'] = $request->user()->id;
-        // dd($request->file);
-        if ($request->file('file')) {
         
+        // file保存処理
+        if ($request->file('file')) {
             //S3へのファイルアップロード処理の時の情報を変数$upload_infoに格納
             $upload_info = Storage::disk('s3')->putFile('images', $request->file('file'), 'public');
             //$upload_infoからアップロードされた画像へのリンクURLを取得し、プロパティ(静的メソッド)image_pathに格納 
@@ -71,9 +73,9 @@ class PostController extends Controller
         }
         
         $post->fill($input)->save();
-        // dd($post);
         // 上の行は $post->create($input）としても良い
         
+        // tags保存処理
         if ($request->tags) {
             // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
             preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $request->tags, $match);
@@ -96,9 +98,10 @@ class PostController extends Controller
             $post->tags()->attach($tags_id);
         }
         return redirect('/posts/' . $post->id);
+        
     }
     
-    
+    // 特定IDのPost編集を表示
     public function edit(Post $post)
     {
         $prefs = Config::get('prefs');
@@ -110,14 +113,15 @@ class PostController extends Controller
             'prefs' => $prefs,
             'categories' => $categories,
             'user' => $user,
-            ]);
+        ]);
     }
     
+    // Post編集を保存
     public function update(PostRequest $request, Post $post)
     {
         $input = $request['post'];
+        // file保存処理
         if ($request->file('file')) {
-        
             //S3へのファイルアップロード処理の時の情報を変数$upload_infoに格納
             $upload_info = Storage::disk('s3')->putFile('images', $request->file('file'), 'public');
             //$upload_infoからアップロードされた画像へのリンクURLを取得し、プロパティ(静的メソッド)image_pathに格納 
@@ -127,6 +131,7 @@ class PostController extends Controller
         $post->fill($input)->save();
         // 上の行は $post->create($input）としても良い
         
+        // tags保存処理
         if ($request->tags) {
             // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
             preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $request->tags, $match);
@@ -148,26 +153,25 @@ class PostController extends Controller
             // attachメソッドは$postsをsave()してから実行
             $post->tags()->sync($tags_id);
         }
-        
         return redirect('/posts/' . $post->id);
-
     }
     
+    // 特定IDのPost削除
     public function delete(Post $post)
     {
         $post->delete();
         return redirect('/');
     }
- 
+    
+    // Post検索を表示
     public function search()
     {
         $posts = Post::orderBy("updated_at", "desc")->where(function ($query) {
-    
             // 検索機能
             if ($search = request("search")) {
                 $query->Where("body","LIKE","%{$search}%");
             }
-        })->paginate(50);
+        })->paginate(30);
 
         return view('/posts/search')->with([
             'posts' => $posts

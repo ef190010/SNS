@@ -17,15 +17,13 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-    * Display a listing of the resource.
+    * 特定IDのUser詳細を表示
     *
     * @return \Illuminate\Http\Response
     */
     public function show(User $user)
     {
-        // $posts = new Post;
         $myposts = Post::where('user_id', $user->id)->orderBy('updated_at', 'desc')->paginate(50);
-        // dd($posts);
         return view('users/show')->with([
             'user' => $user,
             'myposts' => $myposts,
@@ -33,12 +31,11 @@ class UserController extends Controller
     }
     
     /**
-     * Show the form for editing the specified resource.
+    * 特定IDのUser編集を表示
     *
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-
     public function edit()
     {
         $prefs = Config::get('prefs');
@@ -48,15 +45,15 @@ class UserController extends Controller
             'user' => Auth::user(),
             'prefs' => $prefs,
             'categories' => $categories,
-            ]);
+        ]);
     }
     
-
+    // User編集を保存
     public function update(UserRequest $request)
     {
         $user = Auth::user();
         $user->fill($request->all());
-        // dd($user);
+        // icon保存処理
         if ($request->file('icon')) {
             //S3へのファイルアップロード処理の時の情報を変数$upload_infoに格納
             $upload_info = Storage::disk('s3')->putFile('icons', $request->file('icon'), 'public');
@@ -77,24 +74,25 @@ class UserController extends Controller
 
     }
     
+    // 特定IDのUser削除
     public function delete(User $user)
     {
         $user->delete();
         return redirect('/');
     }
     
-    // フォロー
+    // 特定IDをフォロー
     public function follow(User $user)
     {
         Auth::user()->follow($user->id);
         return back();
     }
 
-    // フォロー解除
+    // 特定IDをフォロー解除
     public function unfollow(User $user)
     {
         Auth::user()->unfollow($user->id);    
         return back();
-        
     }
+
 }

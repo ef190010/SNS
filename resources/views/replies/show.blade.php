@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+<script src="{{ asset('/js/showform.js') }}" defer></script>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
@@ -10,6 +13,7 @@
             @else
                 <a href='/posts/{{ $reply->post_id }}'>返信元に戻る</a>
             @endif
+            
             <p><a href="/users/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a> でログイン中</p>
 
             <h3>返信の詳細</h3>
@@ -23,24 +27,28 @@
                     <div class="d-flex justify-content-end flex-grow-1">
                         <p class="mb-0 text-secondary">{{ $reply->updated_at->format('Y-m-d H:i') }}</p>
                     </div>
-                </div>                    
+                </div>
+
 
                 <div class="card-body">
-                    @if ($reply->user->id === Auth::user()->id)        
+                    <!-- 自ユーザーなら編集ボタンを表示 -->
+                    @if ($reply->user->id === Auth::user()->id)
                         <p>[<a href="/replies/{{ $reply->id }}/edit">この返信を編集</a>]</p>
                         <p>
-                        <form action="/replies/{{ $reply->id }}" id="form_{{ $reply->id }}" method="POST" style="display:inline" onclick="return confirm('本当に削除しますか?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">この返信を削除</button> 
-                        </form>
+                            <form action="/replies/{{ $reply->id }}" id="form_{{ $reply->id }}" method="POST" style="display:inline" onclick="return confirm('本当に削除しますか?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">この返信を削除</button>
+                            </form>
                         </p>
                     @endif
+                </div>
 
-                    <p><a href='/posts/{{ $reply->id }}'>{{ $reply->body }}</a></p>
+                <div class="card-body">
+                    <p style="white-space:pre-wrap;"><a href='/replies/{{ $reply->id }}'>{{ $reply->body }}</a></p>
                     @if(!is_null($reply->image_path))
                         <img src="{{ $reply->image_path }}" class="img-fluid">
-                    @endif            
+                    @endif
                 </div>
 
                 <div class="card-footer py-1 d-flex justify-content-end bg-white">
@@ -57,8 +65,8 @@
                             <button type="submit">いいね</button>
                         </form>
                     @endif
-                    <!-- ここまで -->                
-                    
+                    <!-- ここまで -->
+
                     <div class="mr-3 d-flex align-items-center">
                         <p class="mb-0 text-secondary">コメント：{{ $reply->replies()->count() }}</p>
                     </div>
@@ -67,10 +75,10 @@
                         <p class="mb-0 text-secondary">いいね：{{ $reply->favoriteReplies()->count() }}</p>
                     </div>
                 </div>
-    	    </div>
-    	</div>
+            </div>
+        </div>
     </div>
-            
+
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
             <h3>この返信にコメント</h3>
@@ -80,16 +88,16 @@
                     @csrf
                     <input name="reply[reply_id]" type="hidden" value={{ $reply->id }}>
                     <div class="body">
-                        <textarea class="form-control" name="reply[body]" placeholder="本文を入力してください。" value="{{ old('reply.body') }}" ></textarea>
+                        <textarea class="form-control" name="reply[body]" placeholder="本文を入力してください。" value="{{ old('reply.body') }}"></textarea>
                         <p class="body_error" style="color:red">{{ $errors->first('reply.body') }}</p>
                     </div>
-                
+
                     <div class='mb-3'>
                         <label for="formFile" class="form-label">画像ファイル：</label>
                         <input class="form-control" id="formFile" type="file" name="file">
                         <p class="image_error" style="color:red">{{ $errors->first('file') }}</p>
                     </div>
-            
+
                     <button type="submit" class="btn btn-primary">
                         投稿
                     </button>
@@ -97,10 +105,10 @@
             </div>
         </div>
     </div>
-                
+
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
-            <ul class="list-group">    
+            <ul class="list-group">
                 <h3>コメント一覧</h3>
                 @forelse($replies as $reply)
                     <li class="list-group-item">
@@ -114,14 +122,14 @@
                                 <p class="mb-0 text-secondary">{{ $reply->updated_at->format('Y-m-d H:i') }}</p>
                             </div>
                         </div>
-                        
+
                         <div class="py-3">
-                            <p><a href="/replies/{{ $reply->id }}">{{ $reply->body }}</a></p>
+                            <p style="white-space:pre-wrap;"><a href="/replies/{{ $reply->id }}">{{ $reply->body }}</a></p>
                             @if(!is_null($reply->image_path))
                                 <img src="{{ $reply->image_path }}" class="img-fluid">
                             @endif
                         </div>
-                    
+
                         <div class="card-footer py-1 d-flex justify-content-end bg-white">
                             <!-- ここからいいね機能 -->
                             @if ($reply->favoriteReplies()->where('user_id', Auth::user()->id)->where('reply_id', $reply->id)->exists())
@@ -136,8 +144,8 @@
                                     <button type="submit">いいね</button>
                                 </form>
                             @endif
-                            <!-- ここまで -->                
-                            
+                            <!-- ここまで -->
+
                             <div class="mr-3 d-flex align-items-center">
                                 <p class="mb-0 text-secondary">コメント：{{ $reply->replies()->count() }}</p>
                             </div>
@@ -155,7 +163,7 @@
             </ul>
         </div>
     </div>
-</div>    
+</div>
 
 <script src="{{ asset('/js/showform.js') }}" defer></script>
 

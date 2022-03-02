@@ -19,7 +19,7 @@ class PostRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
+     * バリデーションルール
      * @return array
      */
     public function rules()
