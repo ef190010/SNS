@@ -25,13 +25,14 @@ class UserRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
+     * バリデーションルール
      * @return array
      */
     public function rules(Request $request)
     {
         $rules = \App\User::$rules;
-            // メソッドがPATCHのとき（つまりupdate()アクションが呼ばれるとき）
+        
+        // メソッドがPATCHのとき（つまりupdate()アクションが呼ばれるとき）
         if ($request->method == 'PATCH') {
             // passwordのrequiredの条件を外し、nullableにします。
             $key = array_search('required', $rules['password']);
@@ -48,7 +49,6 @@ class UserRequest extends FormRequest
             $key = array_search('unique:users', $rules['name']);
             unset($rules['name'][$key]);
             array_push($rules['name'], Rule::unique('users')->ignore(Auth::user()));
-            
         }
 
         return $rules;

@@ -7,11 +7,11 @@ class PostsTableSeeder extends Seeder
     /**
      * Run the database seeds.
      *
-     * @return voidさ
+     * @return void
      */
     public function run()
     {
-        factory(App\Post::class, 10)
+        factory(App\Post::class, 50)
             ->create()
             ->each(function(App\Post $post) {
                 $post->user()->save(factory(App\User::class)->make());
