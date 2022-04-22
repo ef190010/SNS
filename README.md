@@ -22,8 +22,8 @@
 * MariaDB v10.2.38
 * AWS（Cloud9, EC2, S3）
 * Google APIs（OAuth 2.0 認証, Maps Javascript API）
-* Github（https://github.com/ef190010/SNS）
-* Heroku（https://morning-river-34886.herokuapp.com/login）
+* Github（　https://github.com/ef190010/SNS　）
+* Heroku（　https://morning-river-34886.herokuapp.com/login　）
 
 ## 機能一覧
 * 認証機能
